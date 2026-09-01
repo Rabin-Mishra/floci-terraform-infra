@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    environment {
+        FLOCI_ENDPOINT = "http://floci:4566"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                sh '''
+                    terraform init \
+                      -backend-config="endpoints={s3=\\"${FLOCI_ENDPOINT}\\"}" \
+                      -reconfigure
+                '''
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                sh 'terraform plan -var="floci_endpoint=${FLOCI_ENDPOINT}"'
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                sh 'terraform apply -auto-approve -var="floci_endpoint=${FLOCI_ENDPOINT}"'
+            }
+        }
+
+        stage('Show DB Endpoint') {
+            steps {
+                sh 'terraform output db_host'
+                sh 'terraform output db_port'
+            }
+        }
+    }
+}

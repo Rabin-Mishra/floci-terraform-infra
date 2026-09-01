@@ -6,6 +6,14 @@ terraform {
     }
   }
 }
+
+variable "floci_endpoint" {
+  type    = string
+  default = "http://localhost:4566"
+}
+
+
+
 provider "aws" {
   region                      = "us-east-1"
   access_key                  = "test"
