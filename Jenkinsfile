@@ -15,7 +15,7 @@ pipeline {
         stage('Load tfvars') {
             steps {
                 withCredentials([file(credentialsId: 'floci-terraform-tfvars', variable: 'TFVARS_FILE')]) {
-                    sh 'cp "$TFVARS_FILE" terraform.tfvars'
+                    sh 'rm -f terraform.tfvars && cp "$TFVARS_FILE" terraform.tfvars && chmod 644 terraform.tfvars'
                 }
             }
         }
