@@ -56,3 +56,16 @@ module "hosted_zone" {
   lb_zone_id  = module.alb.lb_zone_id
 
 }
+
+
+module "rds" {
+  source            = "./rds"
+  db_identifier     = "floci-infra-db"
+  db_username       = var.db_username
+  db_password       = var.db_password
+  db_name           = var.db_name
+  allocated_storage = 20
+  instance_class    = "db.t3.micro"
+  engine            = "mysql"
+
+}

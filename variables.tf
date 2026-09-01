@@ -38,3 +38,23 @@ variable "ec2_ami_id" {
   description = "AMI ID for EC2 instance"
 
 }
+
+
+variable "db_username" {
+  type        = string
+  description = "Username for the RDS database"
+
+}
+
+variable "db_password" {
+  type        = string
+  description = "Password for the RDS database"
+  sensitive   = true
+
+}
+
+variable "db_name" {
+  type        = string
+  description = "Name of the RDS database"
+
+}
