@@ -12,6 +12,14 @@ pipeline {
             }
         }
 
+        stage('Load tfvars') {
+            steps {
+                withCredentials([file(credentialsId: 'floci-terraform-tfvars', variable: 'TFVARS_FILE')]) {
+                    sh 'cp "$TFVARS_FILE" terraform.tfvars'
+                }
+            }
+        }
+
         stage('Terraform Init') {
             steps {
                 sh '''
