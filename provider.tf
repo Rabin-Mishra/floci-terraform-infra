@@ -6,14 +6,10 @@ terraform {
     }
   }
 }
-
 variable "floci_endpoint" {
   type    = string
   default = "http://localhost:4566"
 }
-
-
-
 provider "aws" {
   region                      = "us-east-1"
   access_key                  = "test"
@@ -22,14 +18,14 @@ provider "aws" {
   skip_metadata_api_check     = true
   skip_requesting_account_id  = true
   endpoints {
-    ec2                    = "http://localhost:4566"
-    rds                    = "http://localhost:4566"
-    iam                    = "http://localhost:4566"
-    sts                    = "http://localhost:4566"
-    s3                     = "http://localhost:4566"
-    elasticloadbalancing   = "http://localhost:4566"
-    elasticloadbalancingv2 = "http://localhost:4566"
-    route53                = "http://localhost:4566"
-    acm                    = "http://localhost:4566"
+    ec2                    = var.floci_endpoint
+    rds                    = var.floci_endpoint
+    iam                    = var.floci_endpoint
+    sts                    = var.floci_endpoint
+    s3                     = var.floci_endpoint
+    elasticloadbalancing   = var.floci_endpoint
+    elasticloadbalancingv2 = var.floci_endpoint
+    route53                = var.floci_endpoint
+    acm                    = var.floci_endpoint
   }
 }
